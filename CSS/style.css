@@ -79,7 +79,7 @@ section { padding: 6rem 8% 4rem 8%; min-height: 80vh; display: flex; flex-direct
 .btn-outline { background: transparent; color: var(--text-main); border: 1px solid var(--text-muted); }
 .btn-outline:hover { border-color: var(--text-main); background: rgba(255,255,255,0.05); }
 
-/* SERVICIOS (NUEVO) */
+/* SERVICIOS */
 .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
 .service-card { padding: 2.5rem; text-align: center; transition: transform 0.3s; }
 .service-card:hover { transform: translateY(-10px); border-color: var(--accent); }
@@ -89,8 +89,6 @@ section { padding: 6rem 8% 4rem 8%; min-height: 80vh; display: flex; flex-direct
 
 /* TARJETAS DE PROYECTOS */
 .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2.5rem; }
-.project-card { padding: 2rem; display: flex; flex-direction: column; transition: transform 0.4s; }
-.project-card:hover { transform: translateY(-8px); border-color: rgba(255,255,255,0.3); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
 .project-badge { background: rgba(56, 189, 248, 0.15); color: var(--accent); padding: 0.3rem 0.8rem; font-size: 0.8rem; font-weight: 700; border-radius: 50px; width: fit-content; margin-bottom: 1.5rem; }
 .project-card h3 { margin-bottom: 1rem; font-size: 1.5rem; font-weight: 700; }
 .project-problem, .project-solution { font-size: 0.95rem; margin-bottom: 1rem; color: var(--text-muted); }
@@ -184,7 +182,7 @@ body.recruiter-mode-active .project-problem, body.recruiter-mode-active .about-t
     font-weight: 900;
     line-height: 1;
     color: var(--text-main);
-    font-family: monospace; /* Le da el toque analítico/dashboard */
+    font-family: monospace;
 }
 
 .stat-value .percent {
@@ -200,7 +198,6 @@ body.recruiter-mode-active .project-problem, body.recruiter-mode-active .about-t
     text-transform: uppercase;
 }
 
-/* Barras de progreso deportivas */
 .stat-bar {
     width: 100%;
     height: 6px;
@@ -215,6 +212,7 @@ body.recruiter-mode-active .project-problem, body.recruiter-mode-active .about-t
     background: linear-gradient(90deg, var(--accent), #818cf8);
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+    transition: width 1s ease-in-out;
 }
 
 /* LÍNEA DE TIEMPO (ESTILO RUTA DE VIAJE) */
@@ -223,7 +221,6 @@ body.recruiter-mode-active .project-problem, body.recruiter-mode-active .about-t
     padding-left: 2rem;
 }
 
-/* La "Ruta" principal */
 .timeline-route::before {
     content: '';
     position: absolute;
@@ -244,15 +241,14 @@ body.recruiter-mode-active .project-problem, body.recruiter-mode-active .about-t
     margin-bottom: 0;
 }
 
-/* Los "Nodos" o paradas */
 .node-marker {
     position: absolute;
-    left: -2.35rem; /* Ajustado para centrar en la línea */
+    left: -2.35rem;
     top: 5px;
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background: var(--bg-card);
+    background: var(--glass-bg);
     border: 3px solid var(--text-muted);
     z-index: 2;
     transition: all 0.3s ease;
@@ -397,4 +393,166 @@ body.recruiter-mode-active .project-problem, body.recruiter-mode-active .about-t
 
 .btn-project.secondary:hover {
     background: rgba(255, 255, 255, 0.08);
+}
+
+/* ==========================================================================
+   ÁRBOL DE ARQUITECTURA DE TECNOLOGÍAS (TECH TREE)
+   ========================================================================== */
+
+.tech-tree-container {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 25px 15px;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+}
+
+.tree-tier {
+    display: flex;
+    gap: 30px;
+    position: relative;
+    width: 100%;
+    justify-content: center;
+    z-index: 2;
+}
+
+.tree-node {
+    background: rgba(30, 41, 59, 0.95);
+    border-left: 3px solid;
+    padding: 12px 18px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.2s, background 0.2s;
+    position: relative;
+    cursor: default;
+}
+
+.tree-node:hover {
+    transform: translateY(-3px);
+    background: rgba(56, 189, 248, 0.1);
+}
+
+.tree-node.backend { border-left-color: #10b981; }
+.tree-node.frontend { border-left-color: #f59e0b; }
+.tree-node.mobile { border-left-color: #38bdf8; }
+.tree-node.ia { border-left-color: #a855f7; }
+
+.tree-branch-vertical {
+    width: 2px;
+    height: 30px;
+    background: rgba(255,255,255,0.15);
+    z-index: 1;
+}
+
+.tree-connector-horizontal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 2px;
+    background: rgba(255,255,255,0.15);
+    z-index: -1;
+}
+
+.tech-legend {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 25px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    width: 100%;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 15px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #94a3b8;
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 4px;
+}
+
+.legend-dot.ia {
+    background: #a855f7;
+}
+
+/* ==========================================================================
+   CONSOLA SCI-FI (NUEVO ENFOQUE MODO RECLUTADOR)
+   ========================================================================== */
+
+.spaceship-console {
+    background: #000;
+    border: 1px solid #38bdf8;
+    height: 320px;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: inset 0 0 20px rgba(56, 189, 248, 0.2);
+}
+
+.hud-scanner {
+    position: absolute;
+    top: 0; width: 100%; height: 2px;
+    background: rgba(56, 189, 248, 0.5);
+    animation: scanLine 4s linear infinite;
+    z-index: 10;
+}
+
+@keyframes scanLine {
+    0% { top: 0; }
+    100% { top: 100%; }
+}
+
+.module-node {
+    width: 25px; height: 25px;
+    background: #38bdf8;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    position: absolute;
+    cursor: pointer;
+    box-shadow: 0 0 10px #38bdf8;
+    transition: transform 0.2s, background 0.3s, border-color 0.3s;
+    z-index: 5;
+}
+
+.module-node:hover {
+    transform: scale(1.4);
+    background: #10b981;
+    border-color: #10b981;
+    box-shadow: 0 0 15px #10b981;
+}
+
+/* Posicionamiento de los nodos en la consola */
+.m-dom { top: 20%; left: 30%; }
+.m-node { top: 50%; left: 50%; }
+.m-git { top: 80%; left: 20%; }
+.m-python { top: 30%; left: 70%; }
+.m-ia { top: 70%; left: 80%; }
+
+#console-logs {
+    position: absolute;
+    bottom: 10px; left: 10px; right: 10px;
+    background: rgba(0,0,0,0.8);
+    color: #10b981;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    padding: 10px;
+    border: 1px solid #10b981;
+    z-index: 5;
 }
