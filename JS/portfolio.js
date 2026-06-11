@@ -95,89 +95,86 @@ function unlockAchievement(id, title, desc, icon) {
 }
 
 // ==========================================================================
-// ESTILOS DINÁMICOS
+// ESTILOS DINÁMICOS - DISEÑO ACTUALIZADO
 // ==========================================================================
 const dynamicStyles = `
-    .project-image-preview { cursor: zoom-in; }
-    .modal-overlay { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); backdrop-filter: blur(5px); opacity: 0; transition: opacity 0.3s ease; justify-content: center; align-items: center; cursor: zoom-out; }
+    .project-image-preview { cursor: zoom-in; transition: transform 0.3s; }
+    .project-image-preview:hover { transform: scale(1.05); }
+    .modal-overlay { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(2, 6, 23, 0.95); backdrop-filter: blur(10px); opacity: 0; transition: opacity 0.3s ease; justify-content: center; align-items: center; cursor: zoom-out; }
     .modal-overlay.active { display: flex; opacity: 1; }
-    .modal-content { max-width: 90%; max-height: 90%; border-radius: 12px; transform: scale(0.9); transition: transform 0.3s ease; }
+    .modal-content { max-width: 90%; max-height: 90%; border-radius: 12px; transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
     .modal-overlay.active .modal-content { transform: scale(1); }
-    .close-modal { position: absolute; top: 20px; right: 30px; color: #f1f1f1; font-size: 40px; cursor: pointer; }
+    .close-modal { position: absolute; top: 20px; right: 30px; color: #94a3b8; font-size: 40px; cursor: pointer; transition: color 0.3s; }
+    .close-modal:hover { color: #f8fafc; }
 
-    #scouting-center { display: none; background: rgba(15, 23, 42, 0.8); border: 2px solid #38bdf8; border-radius: 12px; padding: 1.5rem; margin-bottom: 2.5rem; box-shadow: 0 0 30px rgba(56, 189, 248, 0.2); animation: slideDown 0.5s ease-out; position: relative; z-index: 10; }
-    body.recruiter-mode-active #scouting-center { display: block; }
+    /* ESTILO VENTANA TERMINAL (HUD) */
+    #scouting-center { display: block; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 16px; padding: 2rem; margin-bottom: 3rem; box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1); animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1); position: relative; z-index: 10; overflow: hidden; }
+    #scouting-center::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #0ea5e9, #8b5cf6); }
 
-    .main-tabs { display: flex; gap: 10px; margin-bottom: 1.5rem; border-bottom: 2px solid rgba(56, 189, 248, 0.3); padding-bottom: 10px; flex-wrap: wrap; }
-    .main-tab-btn { background: transparent; border: none; color: #94a3b8; padding: 8px 15px; cursor: pointer; font-weight: bold; font-size: 1rem; position: relative; transition: color 0.3s; }
-    .main-tab-btn.active { color: #38bdf8; }
-    .main-tab-btn.active::after { content: ''; position: absolute; bottom: -12px; left: 0; width: 100%; height: 3px; background: #38bdf8; border-radius: 3px 3px 0 0; }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
 
-    .scouting-tabs { display: flex; gap: 10px; margin-bottom: 1.5rem; flex-wrap: wrap; }
-    .tab-btn { background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255,255,255,0.1); color: #94a3b8; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.8rem; transition: all 0.2s; }
-    .tab-btn.active { background: #38bdf8; color: #0f172a; border-color: #38bdf8; }
+    .main-tabs { display: flex; gap: 15px; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; justify-content: center; }
+    .main-tab-btn { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); color: #94a3b8; padding: 10px 20px; border-radius: 50px; cursor: pointer; font-weight: 700; font-size: 0.9rem; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; }
+    .main-tab-btn:hover { background: rgba(255,255,255,0.05); color: #f8fafc; }
+    .main-tab-btn.active { background: rgba(14, 165, 233, 0.15); color: #0ea5e9; border-color: rgba(14, 165, 233, 0.4); box-shadow: 0 0 15px rgba(14, 165, 233, 0.2); }
 
-    .scouting-skill-bar { height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; margin-top: 6px; margin-bottom: 14px; }
-    .scouting-skill-progress { height: 100%; background: #38bdf8; width: 0%; transition: width 0.8s cubic-bezier(0.1, 1, 0.1, 1); }
-    .btn-copy-pitch { background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; color: #34d399; padding: 8px 16px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; transition: all 0.2s; }
-    .btn-copy-pitch:hover { background: #10b981; color: white; }
+    .scouting-tabs { display: flex; gap: 10px; margin-bottom: 2rem; justify-content: center; }
+    .tab-btn { background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: all 0.2s; }
+    .tab-btn:hover { border-color: #94a3b8; }
+    .tab-btn.active { background: #0ea5e9; color: #020617; border-color: #0ea5e9; box-shadow: 0 0 15px rgba(14, 165, 233, 0.4); }
 
-    .project-card.highlighted-by-scout { border: 2px solid #38bdf8 !important; box-shadow: 0 0 40px rgba(56, 189, 248, 0.35) !important; transform: scale(1.03) translateY(-5px); z-index: 5; }
+    .scouting-skill-bar { height: 6px; background: rgba(0,0,0,0.5); border-radius: 10px; overflow: hidden; margin-top: 8px; margin-bottom: 16px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.3); }
+    .scouting-skill-progress { height: 100%; background: linear-gradient(90deg, #0ea5e9, #38bdf8); width: 0%; transition: width 1s cubic-bezier(0.1, 1, 0.1, 1); box-shadow: 0 0 10px rgba(14, 165, 233, 0.6); border-radius: 10px; }
+    .btn-copy-pitch { background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; color: #34d399; padding: 12px; border-radius: 8px; font-size: 0.9rem; cursor: pointer; font-weight: 700; width: 100%; margin-top: 15px; transition: all 0.3s; display: flex; justify-content: center; align-items: center; gap: 8px; }
+    .btn-copy-pitch:hover { background: #10b981; color: #020617; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
 
-    #toast-container { position: fixed; top: 20px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
-    .achievement-toast { background: rgba(15, 23, 42, 0.95); border-left: 4px solid #f59e0b; border-radius: 8px; padding: 12px 15px; display: flex; align-items: center; gap: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); transform: translateX(120%); opacity: 0; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); min-width: 280px; }
-    .achievement-toast.show { transform: translateX(0); opacity: 1; }
-    .ach-icon { font-size: 2rem; background: rgba(245, 158, 11, 0.2); padding: 8px; border-radius: 50%; }
+    .project-card.highlighted-by-scout { border: 2px solid #0ea5e9 !important; box-shadow: 0 0 30px rgba(14, 165, 233, 0.25) !important; transform: translateY(-10px); z-index: 5; }
+
+    #toast-container { position: fixed; bottom: 30px; right: 30px; z-index: 10000; display: flex; flex-direction: column; gap: 15px; pointer-events: none; }
+    .achievement-toast { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-left: 4px solid #f59e0b; border-radius: 12px; padding: 15px 20px; display: flex; align-items: center; gap: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: translateX(120%) scale(0.9); opacity: 0; transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); min-width: 300px; }
+    .achievement-toast.show { transform: translateX(0) scale(1); opacity: 1; }
+    .ach-icon { font-size: 2.5rem; background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), transparent); padding: 10px; border-radius: 50%; color: #f59e0b; text-shadow: 0 0 10px rgba(245, 158, 11, 0.5); }
     .ach-text { display: flex; flex-direction: column; }
-    .ach-text strong { color: #f59e0b; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
-    .ach-title { color: white; font-weight: bold; font-size: 0.95rem; }
-    .ach-desc { color: #94a3b8; font-size: 0.8rem; }
+    .ach-text strong { color: #f59e0b; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; }
+    .ach-title { color: #f8fafc; font-weight: 800; font-size: 1rem; margin-top: 2px; }
+    .ach-desc { color: #94a3b8; font-size: 0.85rem; margin-top: 4px; line-height: 1.4; }
 
-    /* ESTILOS DEL MAPA DE ARQUITECTURA */
-    .tech-blueprint { background: #0f172a; border: 2px dashed #38bdf8; border-radius: 8px; height: 360px; position: relative; margin-top: 15px; overflow: hidden; background-image: linear-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px); background-size: 20px 20px; display: flex; flex-direction: column; justify-content: space-around; align-items: center; padding: 10px 0; }
-    .blueprint-zone { width: 85%; height: 25%; border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 6px; display: flex; justify-content: center; align-items: center; gap: 12px; background: rgba(15, 23, 42, 0.6); position: relative; }
-    .zone-frontend { border-color: #10b981; }
-    .zone-frontend::before { content: 'CAPA CLIENTE'; position: absolute; top: -10px; left: 15px; background: #0f172a; padding: 0 5px; font-size: 0.65rem; color: #10b981; font-weight: bold; }
-    .zone-backend { border-color: #f59e0b; }
-    .zone-backend::before { content: 'CAPA SERVIDOR'; position: absolute; top: -10px; left: 15px; background: #0f172a; padding: 0 5px; font-size: 0.65rem; color: #f59e0b; font-weight: bold; }
-    .zone-ai { border-color: #a855f7; }
-    .zone-ai::before { content: 'CAPA IA (COPILOT, GEMINI, CLAUDE)'; position: absolute; top: -10px; left: 15px; background: #0f172a; padding: 0 5px; font-size: 0.65rem; color: #a855f7; font-weight: bold; }
+    /* ESTILOS DEL MAPA DE ARQUITECTURA (Cyber Blueprint) */
+    .tech-blueprint { background: #020617; border: 1px solid rgba(14, 165, 233, 0.2); border-radius: 12px; height: 400px; position: relative; margin-top: 20px; overflow: hidden; background-image: radial-gradient(circle at center, rgba(14, 165, 233, 0.05) 0%, transparent 70%), linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; display: flex; flex-direction: column; justify-content: space-around; align-items: center; padding: 20px 0; box-shadow: inset 0 0 40px rgba(0,0,0,0.8); }
+    .blueprint-zone { width: 85%; height: 26%; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; display: flex; justify-content: center; align-items: center; gap: 15px; background: rgba(15, 23, 42, 0.4); position: relative; backdrop-filter: blur(4px); transition: all 0.3s; }
+    .blueprint-zone:hover { border-color: rgba(255,255,255,0.15); background: rgba(15, 23, 42, 0.6); }
+    .zone-frontend { border-top: 2px solid #10b981; }
+    .zone-frontend::before { content: 'CAPA CLIENTE'; position: absolute; top: -10px; left: 15px; background: #020617; padding: 0 8px; font-size: 0.7rem; color: #10b981; font-weight: 800; letter-spacing: 1px; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 4px; }
+    .zone-backend { border-bottom: 2px solid #f59e0b; }
+    .zone-backend::before { content: 'CAPA SERVIDOR'; position: absolute; bottom: -10px; right: 15px; background: #020617; padding: 0 8px; font-size: 0.7rem; color: #f59e0b; font-weight: 800; letter-spacing: 1px; border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 4px; }
+    .zone-ai { border-top: 2px solid #8b5cf6; }
+    .zone-ai::before { content: 'CAPA IA (COPILOT, GEMINI, CLAUDE)'; position: absolute; top: -10px; left: 15px; background: #020617; padding: 0 8px; font-size: 0.7rem; color: #8b5cf6; font-weight: 800; letter-spacing: 1px; border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 4px; }
 
-    .tech-node { width: 40px; height: 40px; background: rgba(30, 41, 59, 0.9); border: 2px solid #38bdf8; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 1.1rem; box-shadow: 0 4px 8px rgba(0,0,0,0.4); cursor: pointer; transition: all 0.3s; position: relative; }
-    .tech-node::after { content: attr(data-tech); position: absolute; bottom: -25px; background: rgba(0,0,0,0.9); color: white; padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 20; }
-    .tech-node:hover { transform: translateY(-5px) scale(1.1); box-shadow: 0 8px 15px rgba(56, 189, 248, 0.4); background: #38bdf8; color: #0f172a; z-index: 10; }
-    .tech-node:hover::after { opacity: 1; }
+    .tech-node { width: 45px; height: 45px; background: rgba(2, 6, 23, 0.9); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.5); cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; color: #f8fafc; }
+    .tech-node::after { content: attr(data-tech); position: absolute; bottom: -30px; background: #f8fafc; color: #020617; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 800; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s; transform: translateY(-5px); z-index: 20; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+    .tech-node:hover { transform: translateY(-8px) scale(1.15); border-color: #0ea5e9; background: rgba(14, 165, 233, 0.1); box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3); color: #0ea5e9; z-index: 10; }
+    .tech-node:hover::after { opacity: 1; transform: translateY(0); }
 
-    .api-bridge { height: 15%; width: 2px; border-left: 2px dashed #94a3b8; display: flex; align-items: center; justify-content: center; position: relative; }
-    .api-bridge span { background: #0f172a; color: #94a3b8; font-size: 0.65rem; padding: 2px 4px; font-weight: bold; border-radius: 4px; border: 1px solid #94a3b8; }
+    .api-bridge { height: 10%; width: 2px; border-left: 2px dashed rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; position: relative; }
+    .api-bridge span { background: #020617; color: #cbd5e1; font-size: 0.7rem; padding: 4px 8px; font-weight: 800; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1); letter-spacing: 1px; }
 
-    .boarding-pass-container { background: #f8fafc; border-radius: 12px; display: flex; overflow: hidden; color: #0f172a; margin-top: 15px; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-    .bp-left { flex: 3; padding: 20px; border-right: 2px dashed #cbd5e1; position: relative; }
-    .bp-right { flex: 1; background: #38bdf8; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; }
-    .bp-left::before, .bp-left::after { content: ''; position: absolute; right: -12px; width: 24px; height: 24px; background: #0f172a; border-radius: 50%; }
-    .bp-left::before { top: -12px; } .bp-left::after { bottom: -12px; }
-    .bp-header { display: flex; justify-content: space-between; margin-bottom: 20px; font-weight: bold; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
-    .bp-route { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    /* BOARDING PASS */
+    .boarding-pass-container { background: linear-gradient(135deg, #f8fafc, #e2e8f0); border-radius: 16px; display: flex; overflow: hidden; color: #0f172a; margin-top: 20px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    .bp-left { flex: 3; padding: 25px; border-right: 2px dashed #94a3b8; position: relative; }
+    .bp-right { flex: 1; background: linear-gradient(135deg, #0ea5e9, #38bdf8); padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; position: relative; }
+    .bp-left::before, .bp-left::after { content: ''; position: absolute; right: -15px; width: 30px; height: 30px; background: #0f172a; border-radius: 50%; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); }
+    .bp-left::before { top: -15px; } .bp-left::after { bottom: -15px; }
+    .bp-header { display: flex; justify-content: space-between; margin-bottom: 25px; font-weight: 900; border-bottom: 2px solid #cbd5e1; padding-bottom: 15px; font-size: 1.1rem; }
+    .bp-route { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
     .bp-city { text-align: center; }
-    .bp-code { font-size: 2.2rem; font-weight: 900; letter-spacing: 2px; color: #0f172a; }
-    .bp-name { font-size: 0.8rem; color: #64748b; text-transform: uppercase; }
-    .bp-transport { font-size: 1.5rem; color: #38bdf8; display: flex; align-items: center; gap: 5px; }
-    .bp-transport::before, .bp-transport::after { content: '---------'; letter-spacing: -2px; color: #cbd5e1; font-size: 1rem; }
-    .bp-details { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.85rem; }
-    .bp-label { color: #64748b; text-transform: uppercase; font-size: 0.7rem; font-weight: bold; }
-    .bp-value { font-weight: bold; font-size: 1rem; }
-    .bp-barcode { font-family: 'Courier New', monospace; font-size: 0.7rem; letter-spacing: 2px; text-align: center; transform: rotate(90deg); white-space: nowrap; }
-
-    #projectsGrid { transition: filter 0.6s ease, opacity 0.6s ease; }
-    body.guide-active #projectsGrid { filter: blur(8px); opacity: 0.4; pointer-events: none; }
-    #recruiter-guide-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px); z-index: 9990; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.5s ease; }
-    body.guide-active #recruiter-guide-overlay { display: flex; opacity: 1; }
-    .guide-panel { background: rgba(30, 41, 59, 0.95); border: 2px solid #38bdf8; padding: 2.5rem; border-radius: 16px; max-width: 550px; text-align: center; box-shadow: 0 0 50px rgba(56, 189, 248, 0.3); }
-    .btn-activate-scouting { background: #38bdf8; color: #0f172a; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem; margin-top: 15px; transition: all 0.2s; }
-    .btn-activate-scouting:hover { background: white; transform: translateY(-2px); }
-    #guide-pointer { position: fixed; z-index: 9995; display: none; color: #38bdf8; font-size: 2.5rem; animation: pointArrow 1s infinite; pointer-events: none; }
-    body.guide-active #guide-pointer { display: block; }
-    @keyframes pointArrow { 0%, 100% { transform: translate(0, 0); opacity: 1; } 50% { transform: translate(0, -15px); opacity: 0.5; } }
+    .bp-code { font-size: 2.5rem; font-weight: 900; letter-spacing: 1px; color: #020617; font-family: 'Arial Black', sans-serif; }
+    .bp-name { font-size: 0.85rem; color: #64748b; text-transform: uppercase; font-weight: 700; }
+    .bp-transport { font-size: 1.8rem; color: #0ea5e9; display: flex; align-items: center; gap: 8px; }
+    .bp-transport::before, .bp-transport::after { content: '---------'; letter-spacing: -2px; color: #94a3b8; font-size: 1rem; opacity: 0.5; }
+    .bp-details { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.9rem; }
+    .bp-label { color: #64748b; text-transform: uppercase; font-size: 0.75rem; font-weight: 800; margin-bottom: 4px; }
+    .bp-value { font-weight: 800; font-size: 1.1rem; color: #0f172a; }
+    .bp-barcode { font-family: 'Courier New', monospace; font-size: 0.8rem; letter-spacing: 1px; text-align: center; transform: rotate(90deg); white-space: nowrap; font-weight: bold; opacity: 0.9; }
 `;
 
 // ==========================================================================
@@ -191,15 +188,16 @@ function setupRecruiterEnvironment() {
     document.body.insertAdjacentHTML('beforeend', '<div id="toast-container"></div>');
 
     const modalHTML = `<div id="imageModal" class="modal-overlay"><span class="close-modal" id="closeModal">&times;</span><img class="modal-content" id="modalImage"></div>`;
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
 
     const grid = document.getElementById('projectsGrid');
     if (grid) {
         const centerHTML = `
             <div id="scouting-center">
                 <div class="main-tabs">
-                    <button class="main-tab-btn active" data-target="view-ats">Filtro ATS 📊</button>
-                    <button class="main-tab-btn" data-target="view-tactics">Arquitectura 🏗️</button>
-                    <button class="main-tab-btn" data-target="view-logistics">Logística ✈️</button>
+                    <button class="main-tab-btn active" data-target="view-ats"><i class="fas fa-chart-bar"></i> Filtro ATS</button>
+                    <button class="main-tab-btn" data-target="view-tactics"><i class="fas fa-sitemap"></i> Arquitectura</button>
+                    <button class="main-tab-btn" data-target="view-logistics"><i class="fas fa-plane-departure"></i> Logística</button>
                 </div>
 
                 <div id="view-ats" class="scouting-view">
@@ -212,9 +210,9 @@ function setupRecruiterEnvironment() {
                 </div>
 
                 <div id="view-tactics" class="scouting-view" style="display: none;">
-                    <div style="color: white; font-size: 0.9rem; margin-bottom: 10px;">
+                    <div style="color: #f8fafc; font-size: 1rem; margin-bottom: 15px; text-align: center;">
                         <strong>Mapa de Arquitectura Full-Stack</strong><br>
-                        <span style="color: #94a3b8; font-size: 0.8rem;">Ecosistema integrado con soporte de Copilot, Gemini y Claude.</span>
+                        <span style="color: #94a3b8; font-size: 0.85rem;">Ecosistema integrado con soporte de Copilot, Gemini y Claude.</span>
                     </div>
                     <div class="tech-blueprint">
                         <div class="blueprint-zone zone-ai">
@@ -223,46 +221,43 @@ function setupRecruiterEnvironment() {
                             <div class="tech-node" data-tech="Claude">✨</div>
                         </div>
                         <div class="blueprint-zone zone-frontend">
-                            <div class="tech-node" data-tech="HTML5">🌐</div>
-                            <div class="tech-node" data-tech="CSS3">🎨</div>
-                            <div class="tech-node" data-tech="Vanilla JS">JS</div>
-                            <div class="tech-node" data-tech="DOM">DOM</div>
+                            <div class="tech-node" data-tech="HTML5"><i class="fab fa-html5"></i></div>
+                            <div class="tech-node" data-tech="CSS3"><i class="fab fa-css3-alt"></i></div>
+                            <div class="tech-node" data-tech="Vanilla JS"><i class="fab fa-js-square"></i></div>
+                            <div class="tech-node" data-tech="DOM">🗂️</div>
                         </div>
                         <div class="api-bridge"><span>API REST</span></div>
                         <div class="blueprint-zone zone-backend">
-                            <div class="tech-node" data-tech="Node.js">🟢</div>
+                            <div class="tech-node" data-tech="Node.js"><i class="fab fa-node-js"></i></div>
                             <div class="tech-node" data-tech=".env">🔐</div>
-                            <div class="tech-node" data-tech="Git">🌿</div>
+                            <div class="tech-node" data-tech="Git"><i class="fab fa-git-alt"></i></div>
                             <div class="tech-node" data-tech="C/S">⚙️</div>
                         </div>
                     </div>
                 </div>
 
                 <div id="view-logistics" class="scouting-view" style="display: none;">
-                    <div style="color: white; font-size: 0.9rem; margin-bottom: 10px;">
-                        <strong>Logística de Movilidad y Alcance Global</strong>
-                    </div>
                     <div class="boarding-pass-container">
                         <div class="bp-left">
                             <div class="bp-header">
-                                <span>TECH AIRLINES</span>
+                                <span><i class="fas fa-plane"></i> TECH AIRLINES</span>
                                 <span>BOARDING PASS</span>
                             </div>
                             <div class="bp-route">
                                 <div class="bp-city"><div class="bp-code">UY</div><div class="bp-name">Uruguay</div></div>
-                                <div class="bp-transport">✈️ GLOBAL ✈️</div>
+                                <div class="bp-transport"><i class="fas fa-paper-plane"></i> GLOBAL <i class="fas fa-globe"></i></div>
                                 <div class="bp-city"><div class="bp-code">🌎</div><div class="bp-name">Remote</div></div>
                             </div>
                             <div class="bp-details">
                                 <div><div class="bp-label">Desarrollador</div><div class="bp-value">Juan Garcia</div></div>
                                 <div><div class="bp-label">Idiomas</div><div class="bp-value">ESP, ENG (B), PORT (B)</div></div>
-                                <div><div class="bp-label">Movilidad</div><div class="bp-value">Remoto / Precencial. </div></div>
-                                <div><div class="bp-label">Status</div><div class="bp-value" style="color: #10b981;">Ready to Deploy</div></div>
+                                <div><div class="bp-label">Movilidad</div><div class="bp-value">Remoto / Presencial</div></div>
+                                <div><div class="bp-label">Status</div><div class="bp-value" style="color: #10b981;"><i class="fas fa-check-circle"></i> Ready to Deploy</div></div>
                             </div>
                         </div>
                         <div class="bp-right">
                             <div class="bp-barcode">||| |||| || ||| ||||| ||</div>
-                            <div style="writing-mode: vertical-rl; transform: rotate(180deg); margin-top: 20px; font-weight: bold; letter-spacing: 2px;">GLOBAL</div>
+                            <div style="writing-mode: vertical-rl; transform: rotate(180deg); margin-top: 20px; font-weight: 900; letter-spacing: 4px; font-size: 1.2rem;">GLOBAL</div>
                         </div>
                     </div>
                 </div>
@@ -270,19 +265,6 @@ function setupRecruiterEnvironment() {
         `;
         grid.insertAdjacentHTML('beforebegin', centerHTML);
     }
-
-    const guideHTML = `
-        <div id="recruiter-guide-overlay">
-            <div class="guide-panel">
-                <div style="font-size: 3rem; margin-bottom: 1rem;">💼</div>
-                <h2>Vista de Auditoría Técnica</h2>
-                <p>Detectada visita de perfil técnico. Activa este modo para acceder a los filtros ATS, el esquema táctico de arquitectura y la logística de disponibilidad.</p>
-                <button class="btn-activate-scouting" id="btnGuideActivate">🔐 Desbloquear Panel</button>
-            </div>
-        </div>
-        <div id="guide-pointer"><i class="fas fa-hand-point-up"></i></div>
-    `;
-    document.body.insertAdjacentHTML('beforeend', modalHTML + guideHTML);
 
     const modal = document.getElementById('imageModal');
     function closeModal() { modal.classList.remove('active'); document.body.style.overflow = ''; }
@@ -311,13 +293,13 @@ function updateScoutingView(roleKey) {
     if (targetCard) targetCard.classList.add('highlighted-by-scout');
 
     displayPanel.innerHTML = `
-        <div style="color: #e2e8f0; animation: fadeIn 0.4s ease;">
-            <h4 style="color: white; border-left: 3px solid #38bdf8; padding-left: 10px;">${data.titulo}</h4>
-            <p style="font-size: 0.95rem; color: #94a3b8; margin-bottom: 15px;">${data.pitch}</p>
-            <div style="background: rgba(30, 41, 59, 0.5); padding: 15px; border-radius: 8px;">
+        <div style="color: #e2e8f0; animation: fadeIn 0.4s ease; background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+            <h4 style="color: #f8fafc; border-left: 4px solid #0ea5e9; padding-left: 12px; font-size: 1.2rem; margin-bottom: 10px;">${data.titulo}</h4>
+            <p style="font-size: 0.95rem; color: #cbd5e1; margin-bottom: 20px; line-height: 1.6;">${data.pitch}</p>
+            <div style="background: rgba(15, 23, 42, 0.6); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
                 ${data.skills.map(sk => `
-                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: bold;">
-                        <span>${sk.name}</span><span style="color: #38bdf8;">${sk.level}</span>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; color: #f8fafc;">
+                        <span>${sk.name}</span><span style="color: #0ea5e9;">${sk.level}</span>
                     </div>
                     <div class="scouting-skill-bar"><div class="scouting-skill-progress" data-width="${sk.level}"></div></div>
                 `).join('')}
@@ -330,9 +312,15 @@ function updateScoutingView(roleKey) {
 
     document.getElementById('btnCopyToClipboard').addEventListener('click', function() {
         navigator.clipboard.writeText(data.copyPasteText).then(() => {
-            this.innerHTML = "🏆 ¡Copiado!"; this.style.background = "#10b981"; this.style.color = "white";
+            this.innerHTML = "<i class='fas fa-check'></i> ¡Copiado!";
+            this.style.background = "#10b981";
+            this.style.color = "#020617";
             unlockAchievement('silver_rank', '¡Ascenso a Rango Plata!', 'Datos extraídos listos para reportar al mánager.', '🥈');
-            setTimeout(() => { this.innerHTML = "Copiar Resumen para Reporte"; this.style.background = ""; this.style.color = ""; }, 2500);
+            setTimeout(() => {
+                this.innerHTML = "<i class='far fa-copy'></i> Copiar Resumen para Reporte";
+                this.style.background = "";
+                this.style.color = "";
+            }, 2500);
         });
     });
 }
@@ -347,24 +335,25 @@ function cargarProyectos() {
         if (proyecto.linkDemo && proyecto.linkDemo.trim() !== '') {
             const icon = proyecto.tipoDemo === 'video' ? 'fas fa-play-circle' : 'fas fa-external-link-alt';
             const text = proyecto.tipoDemo === 'video' ? 'Ver Video Demo' : 'Probar Proyecto';
-            btnDemoHTML = `<a href="${proyecto.linkDemo}" target="_blank" class="btn" style="width: 100%; justify-content: center; background-color: #38bdf8; color: #0f172a; margin-bottom: 10px; border: none; font-weight: bold;"><i class="${icon}"></i> ${text}</a>`;
+            btnDemoHTML = `<a href="${proyecto.linkDemo}" target="_blank" class="btn btn-glow" style="width: 100%; justify-content: center; margin-bottom: 12px; padding: 0.8rem;"><i class="${icon}"></i> ${text}</a>`;
         }
 
         const cardHTML = `
-            <article class="project-card glass-panel" id="${proyecto.id}" style="transition: all 0.3s ease;">
-                <div class="project-image-container" style="height: 220px; background-color: rgba(15, 23, 42, 0.5); border-radius: 8px 8px 0 0; overflow: hidden; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--glass-border);">
-                    <img src="${proyecto.imagen}" alt="Captura de ${proyecto.titulo}" class="project-image-preview" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+            <article class="project-card glass-panel" id="${proyecto.id}">
+                <div class="project-image-container" style="height: 200px; background-color: rgba(2, 6, 23, 0.8); border-radius: 16px 16px 0 0; overflow: hidden; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgba(255,255,255,0.05); position: relative;">
+                    <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.5)); pointer-events: none;"></div>
+                    <img src="${proyecto.imagen}" alt="Captura de ${proyecto.titulo}" class="project-image-preview" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;">
                 </div>
-                <div class="project-content" style="padding: 1.8rem;">
+                <div class="project-content">
                     <div class="project-tags project-tech">${proyecto.etiquetas.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
                     <h3>${proyecto.titulo}</h3>
                     <p class="project-description">${proyecto.descripcion}</p>
-                    <div class="project-challenge" style="margin-top: 1.2rem; background: rgba(255, 255, 255, 0.03); padding: 0.8rem; border-radius: 6px; font-size: 0.9rem; border-left: 3px solid var(--accent, #38bdf8);">
-                        <strong>Foco Técnico:</strong> ${proyecto.desafio}
+                    <div class="project-challenge">
+                        <strong><i class="fas fa-microchip"></i> Foco Técnico:</strong><br> ${proyecto.desafio}
                     </div>
-                    <div class="project-links" style="margin-top: 1.8rem; display: flex; flex-direction: column;">
+                    <div class="project-links">
                         ${btnDemoHTML}
-                        <a href="${proyecto.linkGithub}" target="_blank" class="btn btn-outline" style="width: 100%; justify-content: center;"><i class="fab fa-github"></i> Código Fuente</a>
+                        <a href="${proyecto.linkGithub}" target="_blank" class="btn btn-outline" style="width: 100%; justify-content: center; padding: 0.8rem;"><i class="fab fa-github"></i> Código Fuente</a>
                     </div>
                 </div>
             </article>
@@ -383,52 +372,31 @@ function cargarProyectos() {
     });
 }
 
-function toggleEmployerGuide(active) {
-    const body = document.body;
-    const toggle = document.getElementById('recruiterModeToggle');
-    const pointer = document.getElementById('guide-pointer');
-
-    if (active) {
-        body.classList.add('guide-active');
-        if (toggle && pointer) {
-            const rect = toggle.getBoundingClientRect();
-            pointer.style.top = (rect.bottom + window.scrollY + 15) + 'px';
-            pointer.style.left = (rect.left + rect.width / 2 - 20) + 'px';
-        }
-    } else {
-        body.classList.remove('guide-active');
-    }
-}
-
+// ==========================================================================
+// INICIALIZACIÓN (Sintaxis corregida)
+// ==========================================================================
 document.addEventListener('DOMContentLoaded', () => {
     setupRecruiterEnvironment();
     cargarProyectos();
 
-    setTimeout(() => toggleEmployerGuide(true), 600);
+    // Activar la vista ATS inicial por defecto
+    updateScoutingView('frontend');
 
-    const recruiterToggle = document.getElementById('recruiterModeToggle');
-    if (recruiterToggle) {
-        recruiterToggle.addEventListener('change', () => {
-            toggleEmployerGuide(false);
-            if (recruiterToggle.checked) {
-                document.body.classList.add('recruiter-mode-active');
-                updateScoutingView('frontend');
-                setTimeout(() => unlockAchievement('th5_ready', '¡Aldea Optimizada (TH5)!', 'Arquitectura base sólida y lista para inspección.', '🛡️'), 500);
-            } else {
-                document.body.classList.remove('recruiter-mode-active');
-                document.querySelectorAll('.project-card').forEach(card => card.classList.remove('highlighted-by-scout'));
-            }
-        });
-    }
+    // Desplegar logro inicial
+    setTimeout(() => unlockAchievement('th5_ready', '¡Aldea Optimizada (TH5)!', 'Arquitectura base sólida y lista para inspección.', '🛡️'), 500);
 
-    document.getElementById('btnGuideActivate')?.addEventListener('click', () => recruiterToggle?.click());
-
+    // Manejo de clicks dinámicos
     document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('main-tab-btn')) {
-            switchMainView(e.target.getAttribute('data-target'));
+        // En caso de que se haga click en un icono dentro del botón, buscamos el elemento padre con la clase
+        const targetTab = e.target.closest('.main-tab-btn');
+        const roleBtn = e.target.closest('.tab-btn');
+
+        if (targetTab) {
+            switchMainView(targetTab.getAttribute('data-target'));
         }
-        if (e.target.classList.contains('tab-btn')) {
-            updateScoutingView(e.target.getAttribute('data-role'));
+        if (roleBtn) {
+            updateScoutingView(roleBtn.getAttribute('data-role'));
         }
     });
 });
+

@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juan Garcia | Full-Stack Developer</title>
     <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
 
     <header class="main-header">
         <div class="logo">
-            <a href="#">&lt;JuanGarcia /&gt;</a>
+            <a href="#">&lt;JuanGarcia <span style="color: var(--accent);">/</span>&gt;</a>
         </div>
         <nav class="nav-links">
             <a href="#servicios">Servicios</a>
@@ -18,27 +21,20 @@
             <a href="#sobre-mi">Perfil</a>
             <a href="#contacto">Contacto</a>
         </nav>
-        <div class="recruiter-toggle-container">
-            <label class="switch">
-                <input type="checkbox" id="recruiterModeToggle">
-                <span class="slider round"></span>
-            </label>
-            <span class="toggle-text">Modo Reclutador</span>
-        </div>
     </header>
 
     <main>
         <section id="hero" class="hero-section">
             <div class="glass-panel hero-content">
-                <div class="hero-badge">Disponibilidad Inmediata</div>
-                <h1>Desarrollo <span class="highlight-gradient">Full-Stack</span> & Arquitectura Digital</h1>
+                <div class="hero-badge"><i class="fas fa-satellite-dish pulse-icon"></i> Disponibilidad Inmediata</div>
+                <h1>Desarrollo <span class="highlight-gradient">Full-Stack</span><br> & Arquitectura Digital</h1>
                 <p class="hero-description">
                     No solo escribo código. Construyo soluciones robustas combinando lógica de programación, interfaces de alto impacto visual y una sólida mentalidad orientada a la calidad y la experiencia del usuario.
                 </p>
                 <div class="hero-ctas">
-                    <a href="#proyectos" class="btn btn-glow">Explorar Proyectos</a>
+                    <a href="#proyectos" class="btn btn-glow"><i class="fas fa-rocket"></i> Explorar Proyectos</a>
                     <a href="assets/cv-juan-garcia.pdf" download="CV_Juan_Garcia.pdf" class="btn btn-outline recruiter-target">
-                        Descargar CV
+                        <i class="fas fa-file-download"></i> Descargar CV
                     </a>
                 </div>
             </div>
@@ -75,9 +71,8 @@
 
             <div class="dashboard-container">
                 <div class="metrics-panel glass-panel">
-                    <h3 class="panel-subtitle">Stack de Tecnologías</h3>
+                    <h3 class="panel-subtitle"><i class="fas fa-layer-group"></i> Stack de Tecnologías</h3>
                     <div class="stats-grid">
-
                         <div class="stat-card">
                             <div class="stat-value">73<span class="percent">%</span></div>
                             <div class="stat-label">HTML5 & CSS3 (Maquetación)</div>
@@ -110,7 +105,7 @@
                             </div>
                             <div class="tree-branch-vertical"></div>
                             <div class="tree-tier">
-                                <div class="tree-node mobile">Control de Versiones (Git)</div>
+                                <div class="tree-node mobile">Control de Versiones</div>
                                 <div class="tree-connector-horizontal"></div>
                                 <div class="tree-node ia">IA & Machine Learning</div>
                                 <div class="tree-connector-horizontal"></div>
@@ -118,20 +113,18 @@
                             </div>
 
                             <div class="tech-legend">
-                                <div class="legend-item"><span class="legend-dot" style="background: #10b981;"></span> Lógica/Backend</div>
+                                <div class="legend-item"><span class="legend-dot" style="background: #10b981;"></span> Backend</div>
                                 <div class="legend-item"><span class="legend-dot" style="background: #f59e0b;"></span> Frontend</div>
                                 <div class="legend-item"><span class="legend-dot" style="background: #38bdf8;"></span> QA & Tools</div>
                                 <div class="legend-item"><span class="legend-dot ia"></span> IA / ML</div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
                 <div class="timeline-panel glass-panel">
-                    <h3 class="panel-subtitle">Trayectoria & Formación</h3>
+                    <h3 class="panel-subtitle"><i class="fas fa-route"></i> Trayectoria & Formación</h3>
                     <div class="timeline-route">
-
                         <div class="timeline-node">
                             <div class="node-marker"></div>
                             <div class="node-content">
@@ -167,7 +160,6 @@
                                 <p>Aplicando mi mentalidad de Tester y mi experiencia en atención al cliente para construir aplicaciones enfocadas en la calidad, la lógica limpia y la experiencia de usuario final.</p>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -188,7 +180,7 @@
                     <div class="form-group">
                         <textarea id="message" name="mensaje" rows="5" placeholder="Contame sobre tu proyecto o vacante..." required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-glow recruiter-target" style="width: 100%;">Enviar Mensaje Directo</button>
+                    <button type="submit" class="btn btn-glow recruiter-target" style="width: 100%;">Enviar Mensaje Directo <i class="fas fa-paper-plane"></i></button>
                 </form>
             </div>
         </section>
@@ -197,8 +189,8 @@
     <footer class="main-footer glass-panel">
         <p>&copy; 2026 Juan Garcia. Todos los derechos reservados.</p>
         <div class="footer-socials">
-            <a href="https://github.com/garciamaurente-sys" target="_blank" class="recruiter-target">GitHub</a>
-            <a href="https://www.linkedin.com/in/juan-garcía-a3ab73315/" target="_blank" class="recruiter-target">LinkedIn</a>
+            <a href="https://github.com/garciamaurente-sys" target="_blank" class="recruiter-target"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://www.linkedin.com/in/juan-garcía-a3ab73315/" target="_blank" class="recruiter-target"><i class="fab fa-linkedin"></i> LinkedIn</a>
         </div>
     </footer>
 
