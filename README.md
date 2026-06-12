@@ -14,6 +14,6 @@ Mi portafolio personal de desarrollo web, diseñado para presentar mis proyectos
 - **CSS3:** Estilos personalizados, Flexbox, CSS Grid y variables globales para una arquitectura limpia.
 - **JavaScript (ES6+):** Manipulación dinámica del DOM para la carga de proyectos.
 
----
+--
 
 _Desarrollado por Juan Garcia_
