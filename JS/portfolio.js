@@ -8,9 +8,9 @@ const proyectos = [
         id: "proy-nacional",
         titulo: "Nacional Viajes & Galería",
         imagen: "../IMG/nacional-viajes.png",
-        descripcion: "Plataforma web enfocada en el deporte y el seguimiento de rutas. Diseñada con una estructura modular para gestionar galerías de partidos.",
+        descripcion: "Plataforma web para centralizar registros multimedia de viajes deportivos. Incluye un mapa interactivo que geolocaliza estadios visitados y permite organizar galerías de fotos y videos.",
         etiquetas: ["HTML5", "CSS3", "JavaScript"],
-        desafio: "Separación limpia de la lógica (JS), estilos (CSS) y estructura (HTML) para alto impacto visual. Desarrollo realizado con apoyo de Copilot, Gemini y Claude como herramientas de consulta, depuración y optimización de lógica.",
+        desafio: "Arquitectura modular que garantiza una separación clara entre estructura (HTML), estilos (CSS) y lógica (JS), logrando un alto impacto visual. El proceso de desarrollo fue asistido por herramientas de soporte técnico avanzado para optimizar la lógica, depurar código y resolver consultas complejas.",
         linkGithub: "https://github.com/garciamaurente-sys/Nacional_Viajes_galeria",
         linkDemo: "https://youtube.com/tu-video-nacional",
         tipoDemo: "video"
@@ -19,9 +19,9 @@ const proyectos = [
         id: "proy-album",
         titulo: "Album2026",
         imagen: "../IMG/album.png",
-        descripcion: "Aplicación interactiva y móvil diseñada específicamente para documentar viajes y trayectos. Empaquetada como APK instalable.",
+        descripcion: "App móvil nativa para la gestión digital de colecciones. Permite organizar artículos, controlar el estado del álbum y administrar duplicados mediante una interfaz intuitiva.",
         etiquetas: ["Vanilla JS", "UI Móvil", "APK Wrapper"],
-        desafio: "Desarrollo Mobile-First estricto y conversión de proyecto web a una aplicación nativa Android. Desarrollo realizado con apoyo de Copilot, Gemini y Claude como herramientas de consulta, depuración y optimización de lógica.",
+        desafio: "Estrategia de desarrollo Mobile-First aplicada con éxito, incluyendo la conversión del proyecto web a una aplicación nativa para Android. La implementación fue optimizada mediante el uso de modelos de asistencia computacional, lo que agilizó el proceso de debugging y el refinamiento de la estructura lógica.",
         linkGithub: "https://github.com/garciamaurente-sys/AlbumWeb2026",
         linkDemo: "https://youtube.com/tu-video-album",
         tipoDemo: "video"
@@ -30,9 +30,9 @@ const proyectos = [
         id: "proy-finanzas",
         titulo: "Gestor de Finanzas",
         imagen: "../IMG/finanzas.png",
-        descripcion: "Sistema Full-Stack para el control analítico de presupuestos. Ideal para administrar bankrolls de apuestas deportivas.",
+        descripcion: "Sistema Full-Stack de finanzas personales con autenticación segura. Permite a cada usuario gestionar su presupuesto mensual mediante un registro detallado de ingresos, gastos y ahorros.",
         etiquetas: ["Node.js", "Backend JS", "Dotenv"],
-        desafio: "Implementación de arquitectura Cliente-Servidor. Manejo de dependencias y separación de lógica de DB. Desarrollo realizado con apoyo de Copilot, Gemini y Claude como herramientas de consulta, depuración y optimización de lógica.",
+        desafio: "Implementación de una arquitectura Cliente-Servidor sólida, con un manejo preciso de dependencias y aislamiento de la lógica de base de datos. Para garantizar la integridad del sistema, conté con el apoyo de sistemas de asistencia inteligente que facilitaron el control de calidad, la depuración y la mejora de la arquitectura.",
         linkGithub: "https://github.com/garciamaurente-sys/gestor_finanzas",
         linkDemo: "https://youtube.com/tu-video-finanzas",
         tipoDemo: "video"
@@ -43,21 +43,21 @@ const proyectos = [
 const rolesScouting = {
     frontend: {
         titulo: "Frontend Developer (UI/UX Fokus)",
-        pitch: "Junior proactivo enfocado en aprender buenas prácticas como clean code y semántica. Uso de Copilot, Gemini y Claude como asistentes de código para depuración y optimización de lógica.",
+        pitch: "Junior proactivo enfocado en aprender buenas prácticas como clean code y semántica. Uso de Inteligencia Artificial como asistentes de código para depuración y optimización de lógica.",
         skills: [{ name: "Vanilla JS / DOM", level: "65%" }, { name: "Responsive & CSS", level: "74%" }, { name: "Performance", level: "50%" }, { name: "IA Support", level: "18%" }],
         targetProject: "proy-nacional",
         copyPasteText: "Juan Garcia - Frontend Developer | Especialista en JavaScript puro, interfaces responsivas y consumo dinámico de datos. GitHub: https://github.com/garciamaurente-sys/Nacional_Viajes_galeria"
     },
     backend: {
         titulo: "Backend & Server Architecture",
-        pitch: "Capacidad para estructurar entornos de servidor con Node.js, gestionar configuraciones seguras (.env) y desacoplar la lógica de negocio eficientemente con apoyo de Copilot, Gemini y Claude.",
+        pitch: "Capacidad para estructurar entornos de servidor con Node.js, gestionar configuraciones seguras (.env) y desacoplar la lógica de negocio eficientemente con apoyo de la Inteligencia Artificial.",
         skills: [{ name: "Node.js Server", level: "62%" }, { name: "Arquitectura C/S", level: "65%" }, { name: "Dotenv / Security", level: "48%" }, { name: "IA Support", level: "20%" }],
         targetProject: "proy-finanzas",
         copyPasteText: "Juan Garcia - Backend Developer | Enfoque en Node.js, seguridad de entornos y desarrollo de APIs limpias. GitHub: https://github.com/garciamaurente-sys/gestor_finanzas"
     },
     mobile: {
         titulo: "Mobile & Hybrid Developer",
-        pitch: "Dominio técnico en enfoques estrictos Mobile-First, persistencia de datos offline (LocalStorage) y empaquetado web a nativo (APK), optimizado con Copilot, Gemini y Claude.",
+        pitch: "Dominio técnico en enfoques estrictos Mobile-First, persistencia de datos offline (LocalStorage) y empaquetado web a nativo (APK), optimizado con Inteligencia Artificial.",
         skills: [{ name: "Mobile-First Syntax", level: "72%" }, { name: "Offline Storage", level: "60%" }, { name: "APK Compilation", level: "52%" }, { name: "IA Support", level: "17%" }],
         targetProject: "proy-album",
         copyPasteText: "Juan Garcia - Mobile/Hybrid Developer | Experto en desarrollo Mobile-First, almacenamiento persistente local y empaquetado APK. GitHub: https://github.com/garciamaurente-sys/AlbumWeb2026"
@@ -224,7 +224,7 @@ function setupRecruiterEnvironment() {
                             <div class="tech-node" data-tech="HTML5"><i class="fab fa-html5"></i></div>
                             <div class="tech-node" data-tech="CSS3"><i class="fab fa-css3-alt"></i></div>
                             <div class="tech-node" data-tech="Vanilla JS"><i class="fab fa-js-square"></i></div>
-                            <div class="tech-node" data-tech="DOM">🗂️</div>
+                            <div class="tech-node" data-tech="DOM">DOM</div>
                         </div>
                         <div class="api-bridge"><span>API REST</span></div>
                         <div class="blueprint-zone zone-backend">
@@ -277,7 +277,6 @@ function switchMainView(targetId) {
     document.querySelectorAll('.scouting-view').forEach(view => view.style.display = 'none');
     document.getElementById(targetId).style.display = 'block';
     document.querySelectorAll('.main-tab-btn').forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-target') === targetId));
-
     if (targetId === 'view-tactics') unlockAchievement('tactics', 'Arquitecto de Software', 'Analizaste el mapa de arquitectura del código.', '🏗️');
     if (targetId === 'view-logistics') unlockAchievement('travel', 'Ruta Aprobada', 'Logística MVD -> GLO -> REM confirmada.', '✈️');
 }
@@ -286,12 +285,10 @@ function updateScoutingView(roleKey) {
     const data = rolesScouting[roleKey];
     const displayPanel = document.getElementById('scouting-display-panel');
     if (!displayPanel) return;
-
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-role') === roleKey));
     document.querySelectorAll('.project-card').forEach(card => card.classList.remove('highlighted-by-scout'));
     const targetCard = document.getElementById(data.targetProject);
     if (targetCard) targetCard.classList.add('highlighted-by-scout');
-
     displayPanel.innerHTML = `
         <div style="color: #e2e8f0; animation: fadeIn 0.4s ease; background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
             <h4 style="color: #f8fafc; border-left: 4px solid #0ea5e9; padding-left: 12px; font-size: 1.2rem; margin-bottom: 10px;">${data.titulo}</h4>
@@ -307,7 +304,6 @@ function updateScoutingView(roleKey) {
             </div>
         </div>
     `;
-
     setTimeout(() => displayPanel.querySelectorAll('.scouting-skill-progress').forEach(bar => bar.style.width = bar.getAttribute('data-width')), 50);
 
     document.getElementById('btnCopyToClipboard').addEventListener('click', function() {
@@ -329,7 +325,6 @@ function cargarProyectos() {
     const grid = document.getElementById('projectsGrid');
     if (!grid) return;
     grid.innerHTML = '';
-
     proyectos.forEach(proyecto => {
         let btnDemoHTML = '';
         if (proyecto.linkDemo && proyecto.linkDemo.trim() !== '') {
@@ -373,7 +368,7 @@ function cargarProyectos() {
 }
 
 // ==========================================================================
-// INICIALIZACIÓN (Sintaxis corregida)
+// INICIALIZACIÓN
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', () => {
     setupRecruiterEnvironment();
@@ -387,7 +382,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Manejo de clicks dinámicos
     document.addEventListener('click', (e) => {
-        // En caso de que se haga click en un icono dentro del botón, buscamos el elemento padre con la clase
         const targetTab = e.target.closest('.main-tab-btn');
         const roleBtn = e.target.closest('.tab-btn');
 
@@ -398,5 +392,61 @@ document.addEventListener('DOMContentLoaded', () => {
             updateScoutingView(roleBtn.getAttribute('data-role'));
         }
     });
-});
 
+    // Lógica del Formulario de Contacto (Formspree)
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(contactForm);
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+
+            // Efecto de carga en el botón
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    showSuccessToast("¡Mensaje enviado con éxito!");
+                    contactForm.reset();
+                } else {
+                    alert("Hubo un problema al enviar el mensaje. Por favor, revisa tus datos.");
+                }
+            } catch (error) {
+                console.error("Error al enviar el formulario:", error);
+                alert("Error de conexión. Inténtalo más tarde.");
+            } finally {
+                // Restaurar botón
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+            }
+        });
+    }
+
+    function showSuccessToast(msg) {
+        let el = document.querySelector('.success-toast');
+        if (el) {
+            el.textContent = msg;
+            el.classList.remove('hide');
+            el.classList.add('show');
+            clearTimeout(el._timeout);
+        } else {
+            el = document.createElement('div');
+            el.className = 'success-toast show';
+            el.textContent = msg;
+            document.body.appendChild(el);
+        }
+        el._timeout = setTimeout(() => {
+            el.classList.remove('show');
+            el.classList.add('hide');
+            setTimeout(() => { if (el && el.parentNode) el.parentNode.removeChild(el); }, 320);
+        }, 3500);
+    }
+});
