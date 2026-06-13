@@ -899,6 +899,34 @@ section { padding: 8rem 8% 4rem 8%; min-height: 80vh; display: flex; flex-direct
         min-width: 0 !important;
     }
 
+    .main-tabs,
+    .scouting-tabs {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 0.6rem !important;
+        justify-content: center !important;
+    }
+
+    .main-tab-btn,
+    .tab-btn {
+        flex: 1 1 auto !important;
+        min-width: 120px !important;
+        padding: 0.8rem 1rem !important;
+        font-size: 0.85rem !important;
+    }
+
+    .main-tab-btn {
+        width: auto !important;
+    }
+
+    .tab-btn {
+        width: auto !important;
+    }
+
+    #scouting-center {
+        padding: 1.5rem !important;
+    }
+
     .project-card,
     .service-card,
     .contact-container {
