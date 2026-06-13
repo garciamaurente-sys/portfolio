@@ -587,56 +587,53 @@ section { padding: 8rem 8% 4rem 8%; min-height: 80vh; display: flex; flex-direct
 
 }
 
-/* --- CORRECCIÓN RESPONSIVE PARA MÓVILES (Agregar al final de style.css) --- */
-
+/* --- FIX DEFINITIVO RESPONSIVE (Pegar al final de style.css) --- */
 @media (max-width: 768px) {
-    /* 1. Ajuste General de Padding para que no se desperdicie espacio */
-    section {
-        padding: 4rem 1.5rem 2rem 1.5rem !important;
-    }
 
-    /* 2. Arreglo del Menú (Header) */
-    .main-header {
-        grid-template-columns: 1fr !important; /* Stackeamos logo y nav */
-        padding: 1rem !important;
-        text-align: center;
-        gap: 15px;
-    }
-
+    /* 1. FIX: Menú apretado */
+    .main-header { padding: 10px !important; }
     .nav-links {
-        display: flex !important;
         flex-wrap: wrap !important;
+        gap: 5px !important;
+        font-size: 0.7rem !important;
         justify-content: center !important;
-        gap: 10px !important;
-        padding: 0.5rem !important;
-        font-size: 0.8rem !important;
     }
 
-    /* 3. Hero (Título Principal) */
-    .hero-content h1 {
-        font-size: 2.5rem !important; /* Reducido para que quepa */
-        line-height: 1.1 !important;
-    }
-
-    /* 4. Proyectos y Secciones */
-    .projects-grid,
-    .services-grid,
-    .dashboard-container {
-        grid-template-columns: 1fr !important; /* Forzamos 1 sola columna */
-        gap: 1rem !important;
-    }
-
-    /* 5. Solución para el "corte" en Logística/Dashboard */
-    /* El problema era el minmax(400px) que obliga a la caja a ser más ancha que el móvil */
-    .dashboard-container, .service-card, .project-card {
-        min-width: 100% !important;
+    /* 2. FIX: Sección "Desarrollo Full-Stack" (Hero) */
+    /* Aquí forzamos que el título no sea más ancho que la pantalla */
+    .hero-section, .hero-content {
+        padding: 2rem 1rem !important;
+        text-align: center !important;
         width: 100% !important;
-        padding: 1.5rem !important;
     }
 
-    /* 6. Ajuste de fuentes y detalles */
-    .section-title {
-        font-size: 2rem !important;
-        margin-bottom: 2rem !important;
+    h1 {
+        font-size: 1.8rem !important;
+        line-height: 1.2 !important;
+        word-break: break-word !important; /* Evita que el texto sobresalga */
+    }
+
+    /* 3. FIX: Sección "Logística" y Grid general */
+    /* Tu problema es que el grid intenta mantener 2 o 3 columnas */
+    .logistica-grid, .projects-grid, .services-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important; /* Fuerza a 1 sola columna */
+        gap: 15px !important;
+        width: 100% !important;
+        padding: 0 !important;
+    }
+
+    /* Asegura que los contenedores de Logística no tengan ancho mínimo */
+    .card, .logistica-card {
+        width: 100% !important;
+        min-width: 0 !important;
+        padding: 1rem !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 4. FIX: Evitar que la página sea más ancha que el celular */
+    body {
+        overflow-x: hidden !important;
+        width: 100vw !important;
     }
 }
